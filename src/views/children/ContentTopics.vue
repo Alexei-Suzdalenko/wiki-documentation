@@ -1,0 +1,4 @@
+<template>
+  ContentTopics
+  ContentTopics
+</template>
