@@ -10,8 +10,8 @@
             <thead>
             <tr>
               <th>Seen at</th>
-              <th>Title</th>
-              <th>Theme</th>
+              <th>Title item</th>
+              <th>Title theme</th>
             </tr>
             </thead>
             <tbody>
