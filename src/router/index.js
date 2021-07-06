@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Enter from '@/views/Enter';
 import Dashboard from '@/views/Dashboard';
 import AllItems from '@/views/children/AllItems';
-import ContentThemes from '@/views/children/ContentThemes';
+import AllThemes from '@/views/children/AllThemes';
 import ContentChapters from '@/views/children/ContentChapters';
 import NewItem from '@/views/children/NewItem';
 import EditItem from '@/views/children/EditItem';
@@ -18,10 +18,10 @@ const routes = [
     path: '/dashboard', component: Dashboard,
     children: [
       {
-        path: 'themes', component: ContentThemes, meta : { title: 'All Themes' }
+        path: 'themes', component: AllThemes, meta : { title: 'All Themes' }
       },
       {
-        path: 'theme/:id', component: CustomTheme, meta : { title: 'All Themes' }
+        path: 'theme/:id', component: CustomTheme, meta : { title: 'Theme' }
       },
       {
         path: 'chapters', component: ContentChapters, meta : { title: 'All Chapters' }
@@ -30,7 +30,7 @@ const routes = [
         path: 'all-items', component: AllItems, meta : { title: 'All Items' }
       },
       {
-        path: 'new-item', component: NewItem, meta: { title: 'New Item' }
+        path: ':id/new-item', component: NewItem, meta: { title: 'New Item' }
       },
       {
         path: 'item/:id', component: EditItem, meta: { title: 'Edit Item' }
@@ -55,6 +55,7 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   document.title = to.meta.title;
+  document.getElementsByTagName('meta').namedItem('description').setAttribute('content',to.meta.title + ' ' + 'Diseño Web Cantabria - Santander - Alexei Suzdalenko - Santa Maria de Cayon, Saron')
 });
 
 export default router

@@ -30,9 +30,9 @@
        <div class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar" style="display:block;">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">List themes</h6>
-          <router-link
-              v-for="(item, index) in currentData" v-bind:key="index"
-              class="collapse-item" v-bind:to="'login.html'" >{{ item.title }}</router-link>
+          <span  v-on:click="saveCurrentThemeAndGoIt(item.id, item.seen)"
+                 v-for="(item, index) in currentData" v-bind:key="index"
+                 class="collapse-item">{{ item.title }}</span>
         </div>
       </div>
     </li>
@@ -63,8 +63,12 @@ export default {
       otherVaribles: 'otherVaribles'
     }
   },
-  mounted() {
-
+  methods: {
+    saveCurrentThemeAndGoIt(themeId, seenTheme){
+        window.localStorage.setItem('currentTheme', themeId);
+        // add +1 seen
+        this.$router.push('/dashboard/theme/' + themeId);
+    }
   },
   computed: {
     currentData(){
@@ -74,6 +78,8 @@ export default {
       for(let i = 0; i < lenghtThemes; i++) {
         let currentObj = {};
             currentObj.title = this.$store.state.suzdalenko.listThemesGlobal[i].title.substring(0,22);
+            currentObj.id =  this.$store.state.suzdalenko.listThemesGlobal[i].id;
+            currentObj.seen =  this.$store.state.suzdalenko.listThemesGlobal[i].seen;
             listThemes.push(currentObj);
       }
       return listThemes;

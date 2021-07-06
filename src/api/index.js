@@ -10,7 +10,8 @@ async function putCurrentItemNewSee( itemId, seen ){
 
 async function getListThemes(){ // return await fetch('https://jsonplaceholder.typicode.com/todos/1').then(res => res.json())
     let stringUid = window.localStorage.getItem('uid') || 'alexei suzdalenko';
-    return firebase.database().ref('users/' + stringUid + '/themes').orderByChild('seen')
+    return firebase.database().ref('users/' + stringUid + '/themes')
+        .orderByChild('seen')
         .once('value', (snapshot) => snapshot )
         .then((res) => {
             let result = [];
@@ -31,6 +32,36 @@ async function otherVersion(){
     return arrayEmpty;
 }
 
-export default {
-    putCurrentItemNewSee, getListThemes, otherVersion
+async function getDataCurrentTheme(themeId) {
+    let stringUid = window.localStorage.getItem('uid') || 'alexei suzdalenko';
+    // console.log(themeId);
+    return firebase.database().ref('users/' + stringUid + '/themes/' + themeId).get().then(snapshot => snapshot.val());
+    // .once('value', snapshot => snapshot.val());
 }
+
+export default {
+    putCurrentItemNewSee, getListThemes, otherVersion, getDataCurrentTheme
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

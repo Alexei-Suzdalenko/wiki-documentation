@@ -35,7 +35,14 @@ export default {
             window.localStorage.setItem('uid', userCredential.user.uid);
             window.localStorage.setItem('email', this.email);
             window.localStorage.setItem('password', this.password);
-            setTimeout(function(){ currentContext.$router.push('/dashboard/all-items'); }, 1500);
+            setTimeout(function(){
+              let currentTheme = window.localStorage.getItem('currentTheme');
+                if(currentTheme){
+                  currentContext.$router.push('/dashboard/theme/' + currentTheme);
+                } else {
+                  currentContext.$router.push('/dashboard/all-items');
+                }
+              }, 1500);
           })
           .catch((error) => { this.login = error.message;
             let errorCode = error.code;
