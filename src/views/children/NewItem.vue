@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     saveNewItem(){
-      if( !this.title.trim() || !this.description.trim() ) return;
+      if( !this.title.trim() ) return; if(!this.description.trim()) { this.description = ' '; }
       this.save_new_item = 'Saving ... ';
       let currentContextData = this;
       let stringUid = window.localStorage.getItem('uid') || 'alexei suzdalenko';

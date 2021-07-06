@@ -12,6 +12,7 @@
         </div>
       </div>
     </div>
+    <span v-on:click="editItem" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> {{ edit_item }}</span><br><br>
   </div>
 </template>>
 <script>

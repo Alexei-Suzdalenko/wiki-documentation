@@ -16,8 +16,8 @@
             </thead>
             <tbody>
             <tr v-for="(item, index) in listServerItemsFiltered" v-bind:key="index">
-              <td>{{ item.seen }}</td>
-              <td><span class="decoration" v-on:click="goToCurrentItem(item.id, item.seen)">{{ item.title }}</span></td>
+              <td><i v-on:click="goToCurrentItem(item.id, item.seen)" class="fa fa-arrow-up fafontsize"></i> {{ item.seen }}</td>
+              <td><router-link v-bind:to="'/dashboard/item/' + item.id" class="decoration">{{ item.title }}</router-link></td>
             </tr>  
             </tbody>
           </table>

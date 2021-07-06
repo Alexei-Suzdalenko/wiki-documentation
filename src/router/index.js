@@ -2,12 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Enter from '@/views/Enter';
 import Dashboard from '@/views/Dashboard';
 import AllItems from '@/views/children/AllItems';
-import ContentTopics from '@/views/children/ContentTopics';
+import ContentThemes from '@/views/children/ContentThemes';
 import ContentChapters from '@/views/children/ContentChapters';
 import NewItem from '@/views/children/NewItem';
 import EditItem from '@/views/children/EditItem';
 import BuyBuy from '@/views/BuyBuy';
 import BadUser from '@/views/BadUser';
+import CustomTheme from '@/views/children/CustomTheme';
 
 const routes = [
   {
@@ -17,13 +18,16 @@ const routes = [
     path: '/dashboard', component: Dashboard,
     children: [
       {
-        path: 'all-items', component: AllItems, meta : { title: 'All Items' }
+        path: 'themes', component: ContentThemes, meta : { title: 'All Themes' }
       },
       {
-        path: 'topics', component: ContentTopics, meta : { title: 'All Topics' }
+        path: 'theme/:id', component: CustomTheme, meta : { title: 'All Themes' }
       },
       {
         path: 'chapters', component: ContentChapters, meta : { title: 'All Chapters' }
+      },
+      {
+        path: 'all-items', component: AllItems, meta : { title: 'All Items' }
       },
       {
         path: 'new-item', component: NewItem, meta: { title: 'New Item' }

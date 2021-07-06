@@ -21,65 +21,32 @@
     <div class="sidebar-heading">
       Interface
     </div>
-
     <li class="nav-item">
-      <router-link to="/dashboard/topics" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+      <router-link to="/dashboard/themes" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
          aria-expanded="true" aria-controls="collapseTwo">
         <i class="fas fa-fw fa-cog"></i>
-        <span>Topics</span>
+        <span>Themes</span>
       </router-link>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+       <div class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar" style="display:block;">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Custom Components:</h6>
-          <a class="collapse-item" href="buttons.html">Buttons</a>
-          <a class="collapse-item" href="cards.html">Cards</a>
+          <h6 class="collapse-header">List themes</h6>
+          <router-link
+              v-for="(item, index) in currentData" v-bind:key="index"
+              class="collapse-item" v-bind:to="'login.html'" >{{ item.title }}</router-link>
         </div>
       </div>
     </li>
-
-    <li class="nav-item">
-      <router-link to="/dashboard/chapters" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseUtilities"
-         aria-expanded="true" aria-controls="collapseUtilities">
-        <i class="fas fa-fw fa-wrench"></i>
-        <span>Сhapters</span>
-      </router-link>
-      <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-           data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Custom Utilities:</h6>
-          <a class="collapse-item" href="utilities-color.html">Colors</a>
-          <a class="collapse-item" href="utilities-border.html">Borders</a>
-          <a class="collapse-item" href="utilities-animation.html">Animations</a>
-          <a class="collapse-item" href="utilities-other.html">Other</a>
-        </div>
-      </div>
-    </li>
-
     <hr class="sidebar-divider">
 
     <div class="sidebar-heading">
       Addons
     </div>
-
-
     <li class="nav-item">
       <router-link to="/dashboard/all-items" class="nav-link collapsed" data-toggle="collapse" data-target="#collapsePages"
          aria-expanded="true" aria-controls="collapsePages">
         <i class="fas fa-fw fa-folder"></i>
         <span>Items</span>
       </router-link>
-      <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Login Screens:</h6>
-          <a class="collapse-item" href="login.html">Login</a>
-          <a class="collapse-item" href="register.html">Register</a>
-          <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-          <div class="collapse-divider"></div>
-          <h6 class="collapse-header">Other Pages:</h6>
-          <a class="collapse-item" href="404.html">404 Page</a>
-          <a class="collapse-item" href="blank.html">Blank Page</a>
-        </div>
-      </div>
     </li>
 
     <hr class="sidebar-divider d-none d-md-block">
@@ -89,3 +56,29 @@
     </div>
   </ul>
 </template>
+<script>
+export default {
+  data(){
+    return{
+      otherVaribles: 'otherVaribles'
+    }
+  },
+  mounted() {
+
+  },
+  computed: {
+    currentData(){
+      let lenghtThemes = this.$store.state.suzdalenko.listThemesGlobal.length || false;
+      if( !lenghtThemes ) return;
+      let listThemes = [];
+      for(let i = 0; i < lenghtThemes; i++) {
+        let currentObj = {};
+            currentObj.title = this.$store.state.suzdalenko.listThemesGlobal[i].title.substring(0,22);
+            listThemes.push(currentObj);
+      }
+      return listThemes;
+    }
+  },
+}
+</script>
+
