@@ -2,8 +2,7 @@
   <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h5 mb-0 text-gray-800">{{ loading }}</h1>
-      <router-link to="/dashboard/new-item" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">New item</router-link>
-    </div> 
+    </div>
     <div class="card shadow mb-4" v-if="isLoading">
       <div class="card-body">
         <div class="table-responsive">
@@ -12,12 +11,14 @@
             <tr>
               <th>Seen at</th>
               <th>Title</th>
+              <th>Theme</th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="(item, index) in listServerItemsFiltered" v-bind:key="index">
               <td><i v-on:click="goToCurrentItem(item.id, item.seen)" class="fa fa-arrow-up fafontsize"></i> {{ item.seen }}</td>
               <td><router-link v-bind:to="'/dashboard/item/' + item.id" class="decoration">{{ item.title }}</router-link></td>
+              <td><router-link v-bind:to="'/dashboard/theme/' + item.themeId" class="decoration">{{ item.themeTitle }}</router-link></td>
             </tr>  
             </tbody>
           </table>
@@ -46,7 +47,7 @@ export default {
       let emptyArray = [];
       let currentContext = this;
       let stringUid = window.localStorage.getItem('uid') || 'alexei suzdalenko';
-      firebase.database().ref('users/' + stringUid).orderByChild('seen')
+      firebase.database().ref('users/' + stringUid + '/items').orderByChild('seen')
       .once('value', function(snapshot) {
         snapshot.forEach(function (childSnapshot) {
           console.log( childSnapshot.val() );

@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h5 mb-0 text-gray-800">New item</h1>
+      <h1 class="h5 mb-0 text-gray-800">New item, currentTheme = {{ this.$store.state.suzdalenko.currentTheme }} New item</h1>
       <span v-on:click="saveNewItem" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-upload fa-sm text-white-50"></i> {{ save_new_item }}</span>
     </div>
     <div class="card shadow mb-4">
@@ -23,7 +23,8 @@ export default {
       count: 0,
       timeCurrentSecond: String(parseInt(new Date().getTime() / 1000)),
       title: '',
-      description: ''
+      description: '',
+      currentTheme: this.$store.state.suzdalenko.currentTheme
     }
   },
   methods: {
@@ -33,10 +34,12 @@ export default {
       let currentContextData = this;
       let stringUid = window.localStorage.getItem('uid') || 'alexei suzdalenko';
  
-      firebase.database().ref('users/' + stringUid + '/' + this.timeCurrentSecond).set({
+      firebase.database().ref('users/' + stringUid + '/items/' + this.timeCurrentSecond).set({
          title: currentContextData.title,
          seen: 0,
-         id: currentContextData.timeCurrentSecond
+         id: currentContextData.timeCurrentSecond,
+         themeId: currentContextData.currentTheme.id,
+         themeTitle: currentContextData.currentTheme.title
        }).then(() => { 
          ++currentContextData.count;
          setTimeout(function (){ currentContextData.save_new_item = 'Saved';
