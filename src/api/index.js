@@ -35,12 +35,40 @@ async function otherVersion(){
 async function getDataCurrentTheme(themeId) {
     let stringUid = window.localStorage.getItem('uid') || 'alexei suzdalenko';
     // console.log(themeId);
-    return firebase.database().ref('users/' + stringUid + '/themes/' + themeId).get().then(snapshot => snapshot.val());
+    return firebase.database().ref('users/' + stringUid + '/themes/' + themeId).once('value').then(snapshot => snapshot.val());
     // .once('value', snapshot => snapshot.val());
 }
 
+async function getListTitlesFromCurrentTheme(themeId){
+    let stringUid = window.localStorage.getItem('uid') || 'alexei suzdalenko';
+    return firebase.database().ref('users/' + stringUid + '/items')
+         .orderByChild('themeId').equalTo(themeId)
+         .once('value')
+         .then(snapshot => snapshot.val());
+}
+
+async function addThisThemeOneSeem(themeId, seen){ ++seen;
+    let stringUid = window.localStorage.getItem('uid') || 'alexei suzdalenko';
+    return firebase.database().ref('users/' + stringUid + '/themes/' + themeId).update({ 'seen': seen })
+        .then(() => 'ok');
+}
+
+async function addNewSeenFromCurrentItem(itemId, seen){ ++seen;
+    let stringUid = window.localStorage.getItem('uid') || 'alexei suzdalenko';
+    await firebase.database().ref('users/' + stringUid + '/items/' + itemId).update({ 'seen': seen });
+}
+
+async function addThisThemeOneSeemById(themeId){
+    let stringUid = window.localStorage.getItem('uid') || 'alexei suzdalenko';
+    firebase.database().ref('users/' + stringUid + '/themes/' + themeId).once('value').then(snapshot => {
+        console.log(snapshot.val().seen);
+        let currentSeem = snapshot.val().seen; ++currentSeem;
+        firebase.database().ref('users/' + stringUid + '/themes/' + themeId).update({'seen': currentSeem});
+    });
+}
+
 export default {
-    putCurrentItemNewSee, getListThemes, otherVersion, getDataCurrentTheme
+    putCurrentItemNewSee, getListThemes, otherVersion, getDataCurrentTheme, getListTitlesFromCurrentTheme, addThisThemeOneSeem, addNewSeenFromCurrentItem, addThisThemeOneSeemById
 }
 
 

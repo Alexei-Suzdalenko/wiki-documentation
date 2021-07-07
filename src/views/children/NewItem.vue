@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h5 mb-0 text-gray-800">New item, currentTheme = {{ this.$store.state.suzdalenko.currentTheme }} New item</h1>
+      <h1 class="h5 mb-0 text-gray-800">New item,  {{ this.$store.state.suzdalenko.currentTheme.title }} </h1>
       <span v-on:click="saveNewItem" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-upload fa-sm text-white-50"></i> {{ save_new_item }}</span>
     </div>
     <div class="card shadow mb-4">

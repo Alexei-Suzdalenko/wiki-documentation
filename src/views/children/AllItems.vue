@@ -17,8 +17,8 @@
             <tbody>
             <tr v-for="(item, index) in listServerItemsFiltered" v-bind:key="index">
               <td><i v-on:click="goToCurrentItem(item.id, item.seen)" class="fa fa-arrow-up fafontsize"></i> {{ item.seen }}</td>
-              <td><router-link v-bind:to="'/dashboard/item/' + item.id" class="decoration">{{ item.title }}</router-link></td>
-              <td><router-link v-bind:to="'/dashboard/theme/' + item.themeId" class="decoration">{{ item.themeTitle }}</router-link></td>
+              <td><router-link v-on:click="setSeenItem(item.id, item.seen)" v-bind:to="'/dashboard/item/' + item.id" class="decoration">{{ item.title }}</router-link></td>
+              <td><router-link v-on:click="setSeenTheme(item.themeId)" v-bind:to="'/dashboard/theme/' + item.themeId" class="decoration">{{ item.themeTitle }}</router-link></td>
             </tr>  
             </tbody>
           </table>
@@ -43,19 +43,25 @@ export default {
     this.requestDataToServer();
   },
   methods: {
+    setSeenItem(itemId, seen){
+      api.addNewSeenFromCurrentItem(itemId, seen)
+    },
+    setSeenTheme(themId){
+      api.addThisThemeOneSeemById(themId)
+    },
     requestDataToServer(){
       let emptyArray = [];
       let currentContext = this;
       let stringUid = window.localStorage.getItem('uid') || 'alexei suzdalenko';
-      firebase.database().ref('users/' + stringUid + '/items').orderByChild('seen')
-      .once('value', function(snapshot) {
-        snapshot.forEach(function (childSnapshot) {
-          console.log( childSnapshot.val() );
-          emptyArray.push(childSnapshot.val());
-        });
-        currentContext.loading = 'All items';
-        currentContext.isLoading = true;
-        currentContext.listServerItems = emptyArray.reverse();
+      firebase.database().ref('users/' + stringUid + '/items')
+          .orderByChild('seen')
+          .once('value', function(snapshot) {
+           snapshot.forEach(function (childSnapshot) {
+             emptyArray.push(childSnapshot.val());
+           });
+           currentContext.loading = 'All items';
+           currentContext.isLoading = true;
+           currentContext.listServerItems = emptyArray.reverse();
       });
     },
     goToCurrentItem(itemId, seen){

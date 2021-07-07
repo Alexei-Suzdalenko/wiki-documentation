@@ -77,7 +77,8 @@ export default {
       let listThemes = [];
       for(let i = 0; i < lenghtThemes; i++) {
         let currentObj = {};
-            currentObj.title = this.$store.state.suzdalenko.listThemesGlobal[i].title.substring(0,22);
+            currentObj.title = this.$store.state.suzdalenko.listThemesGlobal[i].title;
+            if(currentObj.title && currentObj.title.length > 23) currentObj.title = currentObj.title.substring(0,22);
             currentObj.id =  this.$store.state.suzdalenko.listThemesGlobal[i].id;
             currentObj.seen =  this.$store.state.suzdalenko.listThemesGlobal[i].seen;
             listThemes.push(currentObj);
