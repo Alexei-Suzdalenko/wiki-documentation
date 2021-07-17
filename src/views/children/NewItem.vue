@@ -35,6 +35,7 @@ export default {
       let stringUid = window.localStorage.getItem('uid') || 'alexei suzdalenko';
  
       firebase.database().ref('users/' + stringUid + '/items/' + this.timeCurrentSecond).set({
+         __state: 'pendientIssueGreen',
          title: currentContextData.title,
          seen: 0,
          id: currentContextData.timeCurrentSecond,

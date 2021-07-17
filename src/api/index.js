@@ -34,17 +34,27 @@ async function otherVersion(){
 
 async function getDataCurrentTheme(themeId) {
     let stringUid = window.localStorage.getItem('uid') || 'alexei suzdalenko';
-    // console.log(themeId);
     return firebase.database().ref('users/' + stringUid + '/themes/' + themeId).once('value').then(snapshot => snapshot.val());
-    // .once('value', snapshot => snapshot.val());
 }
 
 async function getListTitlesFromCurrentTheme(themeId){
     let stringUid = window.localStorage.getItem('uid') || 'alexei suzdalenko';
+    let dataArrayFirst = [];
+    let dataArrayOther = [];
     return firebase.database().ref('users/' + stringUid + '/items')
          .orderByChild('themeId').equalTo(themeId)
          .once('value')
-         .then(snapshot => snapshot.val());
+         .then(snapshot => { // filter first item with background green !!!
+             snapshot.forEach((childSnapshot) => {
+                 if('pendientIssueGreen' === childSnapshot.val().__state) {
+                     dataArrayFirst.push(childSnapshot.val())
+                 } else {
+                     dataArrayOther.push(childSnapshot.val())
+                 }
+             });
+             for(let i = 0; i < dataArrayOther.length; i++){ dataArrayFirst.push(dataArrayOther[i])}
+             return dataArrayFirst;
+        });
 }
 
 async function addThisThemeOneSeem(themeId, seen){ ++seen;
