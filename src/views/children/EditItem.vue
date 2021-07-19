@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4"> <span v-bind:class="__state" v-on:click="changeState(__state)"></span>
-      <h1 class="h6 mb-0 text-gray-800">{{ currentItem.themeTitle }}: {{ title }} jui</h1>
+      <h1 class="h6 mb-0 text-gray-800">{{ currentItem.themeTitle }}: {{ title }}</h1>
       <span v-on:click="editItem" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> {{ edit_item }}</span>
     </div>
     <div class="card shadow mb-4">
