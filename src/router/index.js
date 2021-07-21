@@ -53,8 +53,11 @@ const router = createRouter({
   routes
 });
 
-router.beforeEach((to) => {
-  document.title = to.meta.title;
+
+router.beforeEach((to) => { console.log(to.params.id)
+  let moreInfo = to.params.id;
+  if(moreInfo) document.title = to.meta.title + ' ' + moreInfo;
+  else document.title = to.meta.title;
   document.getElementsByTagName('meta').namedItem('description').setAttribute('content',to.meta.title + ' ' + 'Diseño Web Cantabria - Santander - Alexei Suzdalenko - Santa Maria de Cayon, Saron')
 });
 

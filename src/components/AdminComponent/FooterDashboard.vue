@@ -18,18 +18,20 @@ export default {
   },
   methods: {
     testLoginThisUser(){
-      if(!window.localStorage.getItem('email') || !window.localStorage.getItem('password') || !window.localStorage.getItem('uid')){
-        window.localStorage.clear(); 
-        this.$router.push('/bad-user');    
-        return;
-      }
+      //   if(!window.localStorage.getItem('email') || !window.localStorage.getItem('password') || !window.localStorage.getItem('uid')){
+      //     window.localStorage.clear();
+      //     this.$router.push('/bad-user');
+      //     return;
+      //   }
       let currentContext = this;
       let email = window.localStorage.getItem('email') || 'pete@gmail.com';
       let password = window.localStorage.getItem('password') || '12345678AlexeiSuzdalenko';
       firebase.auth().signInWithEmailAndPassword(email, password)
           .then((userCredential) => { window.localStorage.setItem('uid', userCredential.user.uid); })
           .catch((error) => {
-           window.localStorage.clear(); currentContext.$router.push('/bad-user');
+           window.localStorage.clear();
+           alert('You are not logged in');
+           // currentContext.$router.push('/bad-user');
           });
      },
     getMiCurrentTime() {
